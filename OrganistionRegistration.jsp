@@ -1,3 +1,4 @@
+<%@include file="../guest/guestheader.jsp" %>
 <%-- 
     Document   : orgregistrjsp
     Created on : Feb 7, 2018, 1:38:45 PM
@@ -9,10 +10,10 @@
 <jsp:useBean id="obj" class="db.ConnectionClass"></jsp:useBean>
 <!DOCTYPE html>
 <html>
+    <div>
     <head>
         
-       
-      <script src="jq.js" type="text/javascript"></script>
+        <script src="jq.js" type="text/javascript"></script>
         <script>
             function getPlace(v)
             {
@@ -22,138 +23,24 @@
     }});
             }
             </script>
+    
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     
             <body>
 
-     <%
-        String name="",con="",address="", email="",runby="",proof="",logo="",dis="",place="",org="",uname="",pswd="";
-        
-    
-    if(request.getParameter("btnsub")!=null)
-        {
-      
-            String log="";
-            name=request.getParameter("txtname");
-            con=request.getParameter("txtcon");
-            address=request.getParameter("add");
-            email=request.getParameter("txtemail");
-             runby=request.getParameter("txtrun");
-             
-             proof=request.getParameter("txtproof");
-             logo=request.getParameter("txtlogo");
-            dis=request.getParameter("district");
-            place=request.getParameter("place");
-             org=request.getParameter("orgType");
-            uname=request.getParameter("txt_uname");
-            pswd=request.getParameter("ptxt1");
-            
-            
-            String insQry1="insert into tbl_login(user_type,username,password)values('organization','"+uname+"','"+pswd+"')";
-            boolean b2=obj.executeCommand(insQry1);
-                  
-            if(b2==true)
-               {
-                   String sel="select max(login_id) as login from tbl_login";
-                   ResultSet rs=obj.selectCommand(sel);
-                   if(rs.next())
-                   {
-                       log=rs.getString("login");
-                   }
-               }
-            
-            String insQry="insert into tbl_org(org_name,org_contact,org_address,email,run_by,proof,logo,pl_id,dis_id,orgty_id,login_id,status)values('"+name+"','"+con+"','"+address+"','"+email+"','"+ runby+"','"+ proof+"','"+logo+"','"+place+"','"+dis+"','"+ org+"','"+log+"','0')";
-            
-            
-                    
-             boolean b=obj.executeCommand(insQry);
-            
-            
-           
-        }
- 
-    %>
+     
        <center><h1>ORGANIZATION REGISTRATION</h1></center>
-       <form>           
-            <table  align="center">
-                <tr>
-                    <td>
-                        Organization Name
-                    </td>
-                    
-                    <td>
-                        <input type="text" name="txtname" required>
-                    </td>
-                </tr>
-                
-                
-                <tr>
-                    <td>
-                        Contact
-                    </td>
-                    
-                    <td>
-                        <input type="contact" name="txtcon" required  >
-                    </td>
-                </tr>
-                
-                
-                <tr>
-                    <td>
-                        Address
-                    </td>
-                   
-                    <td>
-                        <textarea name="add"> </textarea>
-                    </td>
-                </tr>
-                 
-                
-                <tr>
-                    <td>
-                        Email
-                    </td>
-                    
-                    <td>
-                        <input type="text" name="txtemail" required  >
-                    </td>
-                </tr>
-                 
-                <tr>
-                    <td>
-                        Run By
-                    </td>
-                    
-                    <td>
-                        <input type="text" name="txtrun" required  >
-                    </td>
-                </tr>
-                   
-                 <tr>
-                    <td>
-                        proof
-                    </td>
-                    
-                    <td>
-                        <input type="file" name="txtproof" required  >
-                    </td>
-                </tr>
+       <form action="OganisationRegistrationUploadaction.jsp" method="post" enctype="multipart/form-data">            
+             <table id="orgreg" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                 
                  <tr>
                     <td>
-                        Logo
-                    </td>
-                    
-                    <td>
-                        <input type="file" name="txtlogo" required  >
-                    </td>
-                </tr>
-                     <td>
+                
                         District Name
                     </td>
-                  
+
                      <td>
                          <select name="district" onchange="getPlace(this.value)">
                              <option value="">
@@ -193,6 +80,80 @@
                         </select>
                    </td>
                 </tr>
+                
+                <tr>
+                    <td>
+                        Organization Name
+                    </td>
+                    
+                    <td>
+                        <input type="text" name="txtname" required="" pattern="[a-zA-Z]{3,20}">
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>
+                        Contact
+                    </td>
+                    
+                    <td>
+                        <input type="contact" name="txtcon" required="" pattern="[0-9]{3,20}"   >
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>
+                        Address
+                    </td>
+                   
+                    <td>
+                        <textarea name="add"> </textarea>
+                    </td>
+                </tr>
+                 
+                
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                    
+                    <td>
+                        <input type="email" name="txtemail" required  >
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td>
+                        Run By
+                    </td>
+                    
+                    <td>
+                        <input type="text" name="txtrun" required  >
+                    </td>
+                </tr>
+                   
+                 <tr>
+                    <td>
+                        proof
+                    </td>
+                    
+                    <td>
+                        <input type="file" name="proof" required  >
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td>
+                        Logo
+                    </td>
+                    
+                    <td>
+                        <input type="file" name="photo" required="" pattern="[a-zA-Z]{3,20}"  >
+                    </td>
+                </tr>
+           
                   <tr>
                     <td>
                         Organization Type 
@@ -265,3 +226,5 @@
         </form>
     </body>
 </html>
+</div>
+ <%@include  file="footer.jsp" %>

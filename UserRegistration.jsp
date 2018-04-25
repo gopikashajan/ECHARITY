@@ -1,4 +1,5 @@
-<%-- 
+
+<%@include file="../guest/guestheader.jsp" %><%-- 
     Document   : UserRegistration
     Created on : Feb 13, 2018, 3:13:45 PM
     Author     : ckc
@@ -9,6 +10,7 @@
 <jsp:useBean id="obj" class="db.ConnectionClass"></jsp:useBean>
 <!DOCTYPE html>
 <html>
+    <div >
     <head>
         <script src="jq.js" type="text/javascript"></script>
         <script>
@@ -26,160 +28,18 @@
     </head>
     
         
-     <%
-        String name="",con="",address="", email="",adhar="",photo="",dis="",place="",uname="",pswd="";
-        
     
-    if(request.getParameter("btnsub")!=null)
-        {
-      
-            String log="";
-            name=request.getParameter("txtname");
-            con=request.getParameter("txtcon");
-            address=request.getParameter("add");
-            email=request.getParameter("txtemail");
-            photo=request.getParameter("txtphoto");
-            adhar=request.getParameter("txtadhar");
-            dis=request.getParameter("district");
-            place=request.getParameter("place");
-            uname=request.getParameter("txt_uname");
-            pswd=request.getParameter("txt_pswd");
-           
-            String insQry1="insert into tbl_login(user_type,username,password)values('public','"+uname+"','"+pswd+"')";
-               boolean b2=obj.executeCommand(insQry1);   
-               if(b2==true)
-               {
-                   String sel="select max(login_id) as login from tbl_login";
-                   ResultSet rs=obj.selectCommand(sel);
-                   if(rs.next())
-                   {
-                       log=rs.getString("login");
-                   }
-               }
-            
-            String insQry="insert into tbl_user(user_name,address,contact_no,email,adhar_no,photo,pl_id,dis_id,login_id,status)values('"+name+"','"+con+"','"+address+"','"+email+"','"+adhar+"','"+photo+"','"+place+"','"+dis+"','"+log+"',0)";
-            
-            
-                    
-             boolean b=obj.executeCommand(insQry);
-            
-            
-            if(b==true)
-            {
-                %>
-              <script type="text/javascript">
-            alert("Registered successfully!!!!!");
-             </script>
-             <%
-               
-                  %>
-              <script type="text/javascript">
-            alert("inserted");
-             </script>
-             <%
-            }
-                else
-                {
-                  out.println(insQry1);
-                }
-        }
- 
-    %>
     <body>
        <center><h1>USER REGISTRATION</h1></center>
-       <form>           
-            <table  align="center">
-                <tr>
-                    <td>
-                        User Name
-                    </td>
-                    
-                    <td>
-                        <input type="text" name="txtname" required>
-                    </td>
-                </tr>
+        <form action="userRegistrationUploadaction.jsp" method="post" enctype="multipart/form-data">          
+            <table id="userreg" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                 
-                
-                <tr>
-                    <td>
-                        Address
-                    </td>
-                    
-                    <td>
-                         <textarea name="add"> </textarea>
-                       
-                    </td>
-                </tr>
-                
-                
-                <tr>
-                    <td>
-                        Contact
-                    </td>
-                   
-                    <td>
-                        <input type="text" name="txtcon" required  >
-                    </td>
-                </tr>
-                 
-                
-                <tr>
-                    <td>
-                        Email
-                    </td>
-                    
-                    <td>
-                        <input type="text" name="txtemail" required  >
-                    </td>
-                </tr>
-                 
-                <tr>
-                    <td>
-                        Adhar No
-                    </td>
-                    
-                    <td>
-                        <input type="text" name="txtadhar" required  >
-                    </td>
-                </tr>
-                   
                  <tr>
-                    <td>
-                        Photo
-                    </td>
-                    
-                    <td>
-                        <input type="file" name="txtphoto" required  >
-                    </td>
-                </tr>
-                <tr>
                     <td>
                 
                         District Name
                     </td>
-<!--                    <td>
-                      
-                         <select name="district" >
-                             <option value="">
-                                --select--
-                            </option>
-                            
-                             <%
-                            String str="select * from tbl_district";
-                            ResultSet rs=obj.selectCommand(str);
-                            while (rs.next())
-                            {
-                           %>
-                           <option value="<%=rs.getString("dis_id")%>">
-                               <%=rs.getString("dis_name")%>
-                           </option>
-                            <%
-                            }
-                            %>
-                            
-                        </select><br>
-                   
-                    </td>-->
+
                      <td>
                          <select name="district" onchange="getPlace(this.value)">
                              <option value="">
@@ -188,7 +48,7 @@
                             
                              <%
                             String str1="select * from tbl_district";
-                            ResultSet rs1=obj.selectCommand(str);
+                            ResultSet rs1=obj.selectCommand(str1);
                             while (rs1.next())
                             {
                            %>
@@ -219,7 +79,71 @@
                         </select>
                    </td>
                 </tr>
-                  
+                
+                <tr>
+                    <td>
+                        User Name
+                    </td>
+                    
+                    <td>
+                        <input type="text" name="txtname" required="" pattern="[a-zA-Z]{3,20}">
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>
+                        Address
+                    </td>
+                    
+                    <td>
+                         <textarea name="add"> </textarea>
+                       
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td>
+                        Contact
+                    </td>
+                   
+                    <td>
+                        <input type="text" name="txtcon" required="" pattern="[0-9]{3,20}"    >
+                    </td>
+                </tr>
+                 
+                
+                <tr>
+                    <td>
+                        Email
+                    </td>
+                    
+                    <td>
+                        <input type="email" name="txtemail" required  >
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td>
+                        Adhar No
+                    </td>
+                    
+                    <td>
+                        <input type="text" name="txtadhar" required  >
+                    </td>
+                </tr>
+                   
+                 <tr>
+                    <td>
+                        Photo
+                    </td>
+                    
+                    <td>
+                        <input type="file" name="photo" required  >
+                    </td>
+                </tr>
+               
                 <tr> 
                     <td>
                         Username
@@ -266,3 +190,5 @@
         </form>
     </body>
 </html>
+</div>
+ <%@include  file="footer.jsp" %>

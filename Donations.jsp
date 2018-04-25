@@ -1,3 +1,4 @@
+<%@include file="../user/guestheader.jsp" %>
 <%-- 
     Document   : Donations
     Created on : Feb 13, 2018, 3:33:47 PM
@@ -10,7 +11,7 @@
 <!DOCTYPE <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>donation</title>
     </head>
     <body>
         
@@ -33,15 +34,17 @@
             {
                  date=request.getParameter("txtdate");
                 amount=request.getParameter("txtamt");
-                String insqry="insert into tbl_fund(date,amount,user_id) values('"+date+"','"+amount+"','"+session.getAttribute("userid")+"')";
-                boolean b=obj.executeCommand(insqry);
+                session.setAttribute("date", request.getParameter("txtdate"));
+                 session.setAttribute("amt", request.getParameter("txtamt"));
+//                String insqry="insert into tbl_fund(date,amount,user_id) values('"+date+"','"+amount+"','"+session.getAttribute("userid")+"')";
+//                boolean b=obj.executeCommand(insqry);
                 response.sendRedirect("../user/payment.jsp");
               
             }
             
             %>
         <h1 align="center">DONATION</h1>
-        <table align="center">
+              <table id="donation" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                     <tr>
                         <td>
                         Name
@@ -88,7 +91,7 @@
                         </td>
                         <td>
                             <label>
-                                <%=photo%>
+                                 <img height="60" src="Logo/<%=photo%>">
                             </label>
                         </td>
                     </tr>
@@ -97,7 +100,7 @@
                          Date
                         </td>
                         <td>
-                            <input type="text" name="txtdate">
+                            <input type="date" name="txtdate">
                         </td>
                     </tr>
                     <tr>
@@ -118,3 +121,4 @@
        </form>
     </body>
 </html>
+<%@include  file="footer.jsp" %>

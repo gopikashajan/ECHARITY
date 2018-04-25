@@ -1,3 +1,4 @@
+<%@include file="../admin/guestheader.jsp" %>
 <%-- 
     Document   : add_organization.jsp
     Created on : Feb 7, 2018, 12:07:05 PM
@@ -26,7 +27,7 @@
                 out.println(upQuery);
                 boolean b = obj.executeCommand(upQuery);
                 if (b == true) {
-                    response.sendRedirect("add_organization.jsp");
+                    response.sendRedirect("OrganistionType.jsp");
                 } else
                 {
                     out.println(upQuery);
@@ -42,7 +43,7 @@
                 boolean b = obj.executeCommand(insQry);
                 if (b == true)
                 {
-                    response.sendRedirect("add_organization.jsp");
+                    response.sendRedirect("OrganistionType.jsp");
                 } else
                 {
                     out.println(insQry);
@@ -55,7 +56,7 @@
             String del = "delete from tbl_orgtype where orgty_id='" + request.getParameter("did") + "'";
             boolean b = obj.executeCommand(del);
             if (b) {
-                response.sendRedirect("add_organization.jsp");
+                response.sendRedirect("OrganistionType.jsp");
             } else {
                 out.print(del);
             }
@@ -82,7 +83,7 @@
         
         <form>
             <input type="hidden" name="hid" value="<%=orgId%>">
-            <table border="0" align="center">
+            <table id="orgtype" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                 <tr>
                     <td>
                         Organization type
@@ -108,8 +109,8 @@
                 <tr>
                     <td><%=i%></td>
                     <td><%=rs.getString("orgty_name")%></td>
-                    <td><a href="add_organization.jsp?did=<%=rs.getString("orgty_id")%>">Delete</a></td>
-                    <td><a href="add_organization.jsp?eid=<%=rs.getString("orgty_id")%>">Edit</a></td></tr>
+                    <td><a href="OrganistionType.jsp?did=<%=rs.getString("orgty_id")%>">Delete</a></td>
+                    <td><a href="OrganistionType.jsp?eid=<%=rs.getString("orgty_id")%>">Edit</a></td></tr>
                     <%i++;
                         }
 
@@ -124,3 +125,4 @@
 
     </body>
 </html>
+<%@include  file="footer.jsp" %>

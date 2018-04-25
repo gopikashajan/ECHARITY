@@ -1,3 +1,4 @@
+<%@include file="../admin/guestheader.jsp" %>
 <%-- 
     Document   : add_event_type
     Created on : Feb 6, 2018, 12:13:55 PM
@@ -82,7 +83,7 @@
         
         <form>
             <input type="hidden" name="hid" value="<%=evenId%>">
-            <table border="0" align="center">
+            <table id="event" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                 <tr>
                     <td>
                         Event type
@@ -124,3 +125,4 @@
 
     </body>
 </html>
+<%@include  file="footer.jsp" %>

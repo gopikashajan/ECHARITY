@@ -1,3 +1,4 @@
+<%@include file="../admin/guestheader.jsp" %>
 <%-- 
     Document   : add_district
     Created on : Jan 31, 2018, 12:24:15 PM
@@ -82,7 +83,7 @@
         
         <form>
             <input type="hidden" name="hid" value="<%=distId%>">
-            <table border="1" align="center">
+            <table id="dis" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                 <tr>
                     <td>
                         District Name
@@ -125,3 +126,4 @@
 
     </body>
 </html>
+<%@include  file="footer.jsp" %>

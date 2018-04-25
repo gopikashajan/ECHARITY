@@ -1,3 +1,4 @@
+<%@include file="../admin/guestheader.jsp" %>
 <%-- 
     Document   : add_place.jsp
     Created on : Feb 6, 2018, 11:05:58 AM
@@ -44,7 +45,7 @@
     <body>
          <center><h1>PLACES</h1></center>
         <form>
-            <table border="0" align="center">
+            <table id="place" border="1"  align="center" cellpadding="8" bgcolor="#fff" width="50%" style="border-radius: 12px;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)">
                 <tr>
                     <td>
                         place Name
@@ -86,6 +87,7 @@
                 </td>
                 </tr>
             </table>
-            
+        </form>
     </body>
 </html>
+<%@include  file="footer.jsp" %>
